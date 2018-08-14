@@ -41,6 +41,8 @@ class WarmCommand
 
             foreach ($pages as $page) {
                 $warmer->warm($page->getUrl());
+                //TODO REFACTOR - UPDATE ALL PAGES IN ONE QUERY
+                $this->pageManager->updateLastVisit($page->getPageId(), date('Y-m-d H:i:s'));
             }
         } else {
             $output->writeln('<error>Website with ID ' . $id . ' does not exists!</error>');

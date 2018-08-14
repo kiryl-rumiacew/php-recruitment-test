@@ -8,6 +8,7 @@ class Page
     public $page_id;
     public $url;
     public $website_id;
+    public $last_visit;
     
     public function __construct()
     {
@@ -38,6 +39,14 @@ class Page
     public function getWebsiteId()
     {
         return $this->website_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastVisit()
+    {
+        return $this->last_visit;
     }
     
     

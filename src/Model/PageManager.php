@@ -37,4 +37,13 @@ class PageManager
         $statement->execute();
         return $this->database->lastInsertId();
     }
+
+    public function updateLastVisit($page_id, $lastVisit)
+    {
+        /** @var \PDOStatement $statement */
+        $statement = $this->database->prepare('UPDATE pages SET last_visit = :lastVisit WHERE page_id = :pageId ');
+        $statement->bindParam(':lastVisit', $lastVisit, \PDO::PARAM_STR);
+        $statement->bindParam(':pageId', $page_id, \PDO::PARAM_INT);
+        $statement->execute();
+    }
 }
