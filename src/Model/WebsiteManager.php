@@ -49,4 +49,14 @@ class WebsiteManager
         return $this->database->lastInsertId();
     }
 
+    public function getAllPagesByUserOrderAsc(User $user)
+    {
+        $userId = $user->getUserId();
+        /** @var \PDOStatement $query */
+        $query = $this->database->prepare('SELECT * FROM websites INNER JOIN pages ON websites.website_id=pages.website_id WHERE user_id=:user ORDER BY last_visit ASC');
+        $query->bindParam(':user', $userId, \PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchAll(\PDO::FETCH_CLASS, Website::class);
+    }
+
 }
