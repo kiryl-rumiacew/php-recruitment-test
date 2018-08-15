@@ -3,9 +3,7 @@
 namespace Snowdog\DevTest\Controller;
 
 use Snowdog\DevTest\Model\UserManager;
-use Snowdog\DevTest\Model\Varnish;
 use Snowdog\DevTest\Model\VarnishManager;
-use Snowdog\DevTest\Model\Website;
 
 class CreateVarnishLinkAction
 {
@@ -26,6 +24,19 @@ class CreateVarnishLinkAction
 
     public function execute()
     {
-        // TODO: add module logic here
+        $enable = $_POST['enable'];
+        $websiteId = $_POST['website'];
+        $varnishId = $_POST['varnish'];
+
+        if (isset($_SESSION['login'])) {
+            if (!empty($enable) && !empty($websiteId) &&!empty($varnishId)) {
+                if ($enable == "true"){
+                    $this->varnishManager->link($websiteId, $varnishId);
+                } else if ( $enable == "false" ) {
+                    $this->varnishManager->unlink($websiteId, $varnishId);
+                }
+
+            }
+        }
     }
 }

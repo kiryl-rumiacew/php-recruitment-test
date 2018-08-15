@@ -14,6 +14,14 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/style.css" rel="stylesheet">
+
+    <!--    jQuery-->
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+    </script>
+
 </head>
 
 <body>
@@ -46,7 +54,7 @@
 
         <?php foreach ($this->getVarnishes() as $varnish): /** @var \Snowdog\DevTest\Model\Varnish $varnish */ ?>
             <?php $websiteIds = $this->getAssignedWebsiteIds($varnish) ?>
-            <h2><?= $varnish->getIP() ?></h2>
+            <h2><?= $varnish->getIp() ?></h2>
 
             <div class="padded">
                 <table class="table table-striped">
@@ -57,7 +65,12 @@
                     </tr>
                     <?php foreach ($this->getWebsites() as $website): /** @var \Snowdog\DevTest\Model\Website $website */ ?>
                         <tr>
-                            <td><input type="checkbox" <?= in_array($website->getWebsiteId(), $websiteIds) ? 'checked="checked"' : '' ?>/></td>
+                            <td><input type="checkbox"
+                                       class="linkCheckbox"
+                                       data-varnish="<?= $varnish->getVarnishId() ?>"
+                                       data-website="<?= $website->getWebsiteId() ?>"
+                                       <?= in_array($website->getWebsiteId(), $websiteIds) ? 'checked="checked"' : '' ?>/>
+                            </td>
                             <td><?= $website->getName() ?></td>
                             <td><?= $website->getHostname() ?></td>
                         </tr>
@@ -70,6 +83,7 @@
 
 </div><!-- /.container -->
 
+<script src="/js/main.js"></script>
 
 </body>
 </html>
